@@ -309,7 +309,7 @@
 
     const msg = ok
       ? `<div class="msg ok"><div class="row"><span class="ttl">${pick(GOOD)}</span><b>+${gained}</b></div>${note ? `<small>${note}</small>` : ''}</div>`
-      : `<div class="msg"><div class="row"><span class="ttl">${pick(OOPS)}</span></div><small>You are wrong</small></div>`;
+      : `<div class="msg bad"><div class="row"><span class="x">${ICON.close}</span><span class="ttl">Wrong!</span></div></div>`;
     const fb = $('#fb');
 
     if (seg.mode === 'burst') {
@@ -322,6 +322,18 @@
       $('[data-act=next]').focus({ preventScroll: true });
       setProgress((G.i + 1) / seg.qs.length);
     }
+    fb.classList.toggle('bad', !ok);
+    // keep the fixed feedback bar from covering the last option on short screens
+    requestAnimationFrame(() => {
+      const g = $('#game'), c = document.querySelector('#opts .opt.correct'), w = document.querySelector('#opts .opt.wrong');
+      if (!g) return;
+      g.style.paddingBottom = `calc(${fb.offsetHeight + 16}px + env(safe-area-inset-bottom))`;
+      const barTop = fb.getBoundingClientRect().top;
+      [w, c].filter(Boolean).forEach((el) => {
+        const over = el.getBoundingClientRect().bottom - (barTop + 8);
+        if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' });
+      });
+    });
   }
 
   function nextBurstQuestion() {

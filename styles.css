@@ -10,6 +10,7 @@
   --n-300: #d4d4d4;
   --n-200: #eeeeee;
   --white: #ffffff;
+  --wrong: #b44030;
   --pink-400: #653228;
   --pink-300: #935447;
   --pink-200: #c78375;
@@ -369,6 +370,10 @@ h1, h2, h3, p { margin: 0; }
 .msg b { font-family: var(--sans); font-weight: 400; font-size: 20px; line-height: 1.2; letter-spacing: 0; }
 .msg small { display: block; margin: 0; color: var(--n-600); }
 .msg.ok { animation: pop .3s ease-out; }
+.msg.bad { animation: pop .3s ease-out; }
+.msg.bad .ttl { color: var(--wrong); }
+.msg.bad .x { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--wrong); }
+.msg.bad .x svg { width: 12px; height: 12px; stroke: var(--white); stroke-width: 2; fill: none; stroke-linecap: round; }
 @keyframes pop { from { transform: scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ---------- end ---------- */
