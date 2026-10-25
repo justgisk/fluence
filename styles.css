@@ -11,6 +11,7 @@
   --n-200: #eeeeee;
   --white: #ffffff;
   --wrong: #b44030;
+  --right: #1a824a;
   --pink-400: #653228;
   --pink-300: #935447;
   --pink-200: #c78375;
@@ -371,9 +372,12 @@ h1, h2, h3, p { margin: 0; }
 .msg { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-bottom: 16px; text-align: center; color: var(--ink); }
 .msg .row { display: flex; align-items: center; gap: 6px; }
 .msg .ttl { font-family: var(--header); font-size: 20px; line-height: .9; letter-spacing: -.02em; }
-.msg b { font-family: var(--sans); font-weight: 400; font-size: 20px; line-height: 1.2; letter-spacing: 0; }
+.msg b { font-family: var(--sans); font-weight: 400; font-size: 18px; line-height: 1.2; letter-spacing: 0; }
 .msg small { display: block; margin: 0; color: var(--n-600); }
-.msg.ok { animation: pop .3s ease-out; }
+.msg.ok { animation: pop .3s ease-out; padding-bottom: 8px; }
+.msg.ok .ttl, .msg.ok b { color: var(--right); }
+.msg.ok .tick { display: grid; place-items: center; flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--right); }
+.msg.ok .tick svg { width: 11px; height: 11px; stroke: var(--white); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .msg.bad { animation: pop .3s ease-out; }
 .msg.bad .ttl { color: var(--wrong); }
 .msg.bad .x { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--wrong); }
@@ -422,3 +426,8 @@ h1, h2, h3, p { margin: 0; }
   * { animation: none !important; transition: none !important; }
 }
 @media (max-width: 360px) { .h-xl { font-size: 52px; } .scorebox .big { font-size: 84px; } }
+
+/* home + intro: exactly one viewport tall so nothing is cut off (dvh tracks mobile browser chrome) */
+.home, .intro-screen { height: 100vh; min-height: 0; }
+@supports (height: 100dvh) { .home, .intro-screen { height: 100dvh; } }
+.intro-screen .intro { min-height: 0; }

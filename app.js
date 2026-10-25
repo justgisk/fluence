@@ -16,7 +16,7 @@
     { min: 170, title: 'Getting the Hang of It', line: 'You could nod along in a class now.' },
     { min: 250, title: 'Fluent in Movement', line: 'No PT needed. Go own that gym floor.' },
   ];
-  const SPEED_MS = 3000, STREAK_AT = 3;
+  const STREAK_AT = 3;
 
   const GOOD = ['Nice one!', 'Yes, that’s the one!', 'Look at you!', 'Spot on!', 'You’ve got it!', 'Smooth!'];
   const OOPS = ['So close!', 'Tricky one, right?', 'Easy mix-up!', 'Now you know!', 'That one fools everyone!'];
@@ -282,17 +282,15 @@
     if (G.locked) return;
     G.locked = true;
     const seg = G.plan[G.seg], q = G.q, ok = id === q.target.id;
-    const ms = performance.now() - G.t0;
     G.answered++;
     let gained = 0, note = '';
 
     if (ok) {
-      const fast = ms < SPEED_MS;
       const mult = G.streak >= STREAK_AT ? 2 : 1;
-      gained = (10 + (fast ? 5 : 0)) * mult;
+      gained = 10 * mult;
       G.score += gained; G.correct++; G.streak++;
       G.bestStreak = Math.max(G.bestStreak, G.streak);
-      note = [fast ? 'Speed bonus +5' : '', mult > 1 ? '×2 streak' : ''].filter(Boolean).join(' · ');
+      note = mult > 1 ? '×2 streak' : '';
     } else {
       G.streak = 0;
       if (!G.missed.includes(q.target)) G.missed.push(q.target);
@@ -308,7 +306,7 @@
     updateStreak();
 
     const msg = ok
-      ? `<div class="msg ok"><div class="row"><span class="ttl">${pick(GOOD)}</span><b>+${gained}</b></div>${note ? `<small>${note}</small>` : ''}</div>`
+      ? `<div class="msg ok"><div class="row"><span class="tick">${ICON.tick}</span><span class="ttl">${pick(GOOD)}</span><b>+${gained}</b></div>${note ? `<small>${note}</small>` : ''}</div>`
       : `<div class="msg bad"><div class="row"><span class="x">${ICON.close}</span><span class="ttl">Wrong!</span></div></div>`;
     const fb = $('#fb');
 
