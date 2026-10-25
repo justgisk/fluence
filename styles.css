@@ -71,6 +71,7 @@ h1, h2, h3, p { margin: 0; }
 #app {
   max-width: var(--shell);
   min-height: 100vh;
+  min-height: 100svh;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -427,7 +428,7 @@ h1, h2, h3, p { margin: 0; }
 }
 @media (max-width: 360px) { .h-xl { font-size: 52px; } .scorebox .big { font-size: 84px; } }
 
-/* home + intro: exactly one viewport tall so nothing is cut off (dvh tracks mobile browser chrome) */
+/* home + intro: exactly one viewport tall so nothing is cut off (svh = visible area with Safari toolbar shown) */
 .home, .intro-screen { height: 100vh; min-height: 0; }
-@supports (height: 100dvh) { .home, .intro-screen { height: 100dvh; } }
+@supports (height: 100svh) { .home, .intro-screen { height: 100svh; } }
 .intro-screen .intro { min-height: 0; }
